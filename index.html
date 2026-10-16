@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Integrated Student Development Programme Dashboard</title>
+<style>
+:root{--navy:#16324f;--blue:#2f6690;--teal:#3a7d78;--gold:#d6a044;--bg:#f4f7fb;--card:#fff;--ink:#1d2939;--muted:#667085;--line:#e4e9f0;--soft:#edf3f8}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+header{background:linear-gradient(120deg,#16324f,#2f6690);color:white;padding:32px 20px 28px}header .wrap,main{max-width:1150px;margin:auto}header h1{font-size:clamp(1.6rem,3vw,2.4rem);line-height:1.15;margin:8px 0}header p{margin:8px 0 0;color:#e0ebf5;max-width:800px}.eyebrow{text-transform:uppercase;letter-spacing:.12em;font-size:.75rem;font-weight:700;color:#c5d8e9}
+main{padding:22px 18px 50px}.section{margin:28px 0}.section h2{font-size:1.35rem;margin:0 0 12px}.sub{color:var(--muted);margin-top:-5px;margin-bottom:14px}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.card,.kpi{background:var(--card);border:1px solid var(--line);border-radius:15px;box-shadow:0 3px 12px #17324f0a}.kpi{padding:18px}.kpi .label{color:var(--muted);font-size:.88rem}.kpi .value{font-size:1.9rem;font-weight:750;letter-spacing:-.03em;margin:5px 0}.kpi .note{font-size:.8rem;color:var(--muted)}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.pillar{padding:17px;display:flex;gap:13px}.symbol{background:var(--soft);border-radius:11px;width:42px;height:42px;display:grid;place-items:center;font-size:1.3rem;flex-shrink:0}.pillar h3{font-size:1rem;margin:0 0 4px}.pillar p{margin:0;color:var(--muted);font-size:.9rem}
+.card{padding:18px}.controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:14px}select,input{font:inherit;border:1px solid #cfd8e3;background:white;border-radius:9px;padding:9px 12px;color:var(--ink)}.calendar{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.month{border:1px solid var(--line);border-radius:12px;padding:15px;background:white}.month h3{margin:0 0 3px;font-size:1rem}.month .theme{font-weight:650;color:var(--blue);font-size:.9rem}.month p{font-size:.88rem;color:var(--muted);margin:9px 0}.tag{display:inline-block;border-radius:100px;padding:4px 9px;font-size:.75rem;font-weight:700;background:#e7f4ed;color:#246346}.tag.pause{background:#fff2d9;color:#805b16}
+.budgetrow{display:grid;grid-template-columns:minmax(150px,1fr) minmax(100px,2fr) 110px;gap:12px;align-items:center;margin:13px 0}.bar{height:9px;background:#edf1f5;border-radius:100px;overflow:hidden}.fill{height:100%;border-radius:100px;background:var(--blue)}.amount{text-align:right;font-weight:650;font-variant-numeric:tabular-nums}.budget-total{border-top:1px solid var(--line);padding-top:14px;margin-top:16px;display:flex;justify-content:space-between;gap:12px;font-weight:750;font-size:1.1rem}.small{font-size:.82rem;color:var(--muted)}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:12px 10px;border-bottom:1px solid var(--line);vertical-align:top}th{font-size:.8rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}td{font-size:.9rem}.status{display:inline-block;padding:4px 8px;background:#f0f2f5;border-radius:100px;color:#667085;font-size:.75rem;white-space:nowrap}
+.checklist{display:grid;gap:11px}.checklist label{display:flex;gap:10px;align-items:flex-start}.checklist input{margin-top:4px;accent-color:var(--teal)}.progress{height:7px;background:#e9edf2;border-radius:50px;overflow:hidden;margin-top:14px}.progress div{height:100%;background:var(--teal);width:0;transition:width .2s}.roles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.role{padding:16px;background:white;border:1px solid var(--line);border-radius:12px}.role h3{font-size:1rem;margin:0 0 5px}.role p{color:var(--muted);font-size:.88rem;margin:0}
+.callout{background:#eaf1f7;border:1px solid #d7e4ef;padding:18px;border-radius:14px}.callout h2{margin-top:0}.btn{background:var(--navy);color:white;border:0;padding:10px 14px;border-radius:9px;font:inherit;cursor:pointer}.btn:hover{filter:brightness(1.12)}.toolbar{display:flex;gap:10px;flex-wrap:wrap}.footer{border-top:1px solid var(--line);padding:20px;text-align:center;color:var(--muted);font-size:.8rem}
+@media(max-width:800px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.calendar{grid-template-columns:repeat(2,minmax(0,1fr))}.roles{grid-template-columns:1fr}.budgetrow{grid-template-columns:1fr 100px}.budgetrow .bar{grid-column:1/-1;grid-row:2}.amount{grid-column:2;grid-row:1}}
+@media(max-width:520px){.grid2,.calendar{grid-template-columns:1fr}.kpi{padding:14px}.kpi .value{font-size:1.55rem}main{padding:18px 12px 35px}header{padding:26px 15px}}
+@media print{body{background:white}.btn,.controls{display:none}header{background:#16324f!important;print-color-adjust:exact}.card,.kpi{box-shadow:none;break-inside:avoid}.section{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<div class="eyebrow">Academic year · February–October</div>
+<h1>Student Development Programme Dashboard</h1>
+<p>Integrated Student Development Programme (ISDP) for university residences and accredited private accommodation.</p>
+<p><strong>Planning model:</strong> 1,500 students · Indicative budget: R2,579,500 · Proposed one-year pilot</p>
+</div></header>
+<main>
+<section class="section">
+<h2>Management overview</h2>
+<div class="kpis">
+<div class="kpi"><div class="label">Target students</div><div class="value">1,500</div><div class="note">University and accredited private accommodation</div></div>
+<div class="kpi"><div class="label">Annual budget</div><div class="value">R2.58m</div><div class="note">Includes 10% contingency</div></div>
+<div class="kpi"><div class="label">Active delivery months</div><div class="value">8</div><div class="note">February–June and August–October</div></div>
+<div class="kpi"><div class="label">Development pillars</div><div class="value">6</div><div class="note">Academic, personal, leadership, career, finance, community</div></div>
+</div>
+</section>
+<section class="section">
+<h2>Six programme pillars</h2>
+<div class="grid2">
+<div class="card pillar"><div class="symbol">📚</div><div><h3>Academic success</h3><p>Study skills, tutoring, academic writing, time management and peer mentoring.</p></div></div>
+<div class="card pillar"><div class="symbol">💚</div><div><h3>Personal development & well-being</h3><p>Resilience, healthy relationships, wellness, communication and life skills.</p></div></div>
+<div class="card pillar"><div class="symbol">🧭</div><div><h3>Leadership & citizenship</h3><p>Ethical leadership, student governance, diversity and conflict resolution.</p></div></div>
+<div class="card pillar"><div class="symbol">💼</div><div><h3>Career & employability</h3><p>CVs, interviews, internships, networking and entrepreneurship.</p></div></div>
+<div class="card pillar"><div class="symbol">💰</div><div><h3>Financial literacy</h3><p>Budgeting, saving, responsible credit use and personal financial planning.</p></div></div>
+<div class="card pillar"><div class="symbol">🤝</div><div><h3>Community engagement</h3><p>Volunteering, environmental projects, social responsibility and community impact.</p></div></div>
+</div>
+</section>
+<section class="section">
+<h2>Annual activity calendar</h2><p class="sub">Filter by month. Core activities are excluded during vacation and examination periods; adjust dates to the university calendar.</p>
+<div class="card">
+<div class="controls"><label for="monthFilter"><strong>Show:</strong></label><select id="monthFilter"><option value="all">All months</option><option>February</option><option>March</option><option>April</option><option>May</option><option>June</option><option>July</option><option>August</option><option>September</option><option>October</option></select></div>
+<div class="calendar" id="calendar">
+<article class="month" data-month="February"><h3>February</h3><div class="theme">Orientation & transition</div><p>First-year orientation, study skills, financial basics, peer mentoring and student services awareness.</p><span class="tag">Planned</span></article>
+<article class="month" data-month="March"><h3>March</h3><div class="theme">Academic success</div><p>Academic writing, time management, resilience, responsible AI use and peer tutoring.</p><span class="tag">Planned</span></article>
+<article class="month" data-month="April"><h3>April</h3><div class="theme">Leadership & citizenship</div><p>Leadership Academy, ethics, conflict resolution, diversity and community project planning.</p><span class="tag">Planned</span></article>
+<article class="month" data-month="May"><h3>May</h3><div class="theme">Career & employability</div><p>CV development, interview preparation, entrepreneurship and employer/alumni talks.</p><span class="tag">Planned</span></article>
+<article class="month" data-month="June"><h3>June</h3><div class="theme">Well-being & financial fitness</div><p>Budgeting, saving, stress management and healthy lifestyle activities.</p><span class="tag">Planned</span></article>
+<article class="month" data-month="July"><h3>July</h3><div class="theme">Vacation / exam exclusion</div><p>No core student activities. Internal review and planning only where appropriate.</p><span class="tag pause">Programme pause</span></article>
+<article class="month" data-month="August"><h3>August</h3><div class="theme">Leadership in action</div><p>Community projects, student governance, project management and social impact.</p><span class="tag">Planned</span></article>
+<article class="month" data-month="September"><h3>September</h3><div class="theme">Career readiness</div><p>Internships, professional profiles, workplace readiness and graduate planning.</p><span class="tag">Planned</span></article>
+<article class="month" data-month="October"><h3>October</h3><div class="theme">Impact & recognition</div><p>Community Impact Challenge, awards, student feedback and annual evaluation.</p><span class="tag">Evaluation</span></article>
+</div></div>
+</section>
+<section class="section">
+<h2>Financial dashboard</h2><p class="sub">Indicative annual costing; validate against institutional staffing, venue availability and procurement rates.</p>
+<div class="card">
+<div class="budgetrow"><div>Personnel</div><div class="bar"><div class="fill" style="width:100%"></div></div><div class="amount">R810,000</div></div>
+<div class="budgetrow"><div>Facilitators</div><div class="bar"><div class="fill" style="width:70.4%;background:#3a7d78"></div></div><div class="amount">R570,000</div></div>
+<div class="budgetrow"><div>Student activities</div><div class="bar"><div class="fill" style="width:58%;background:#d6a044"></div></div><div class="amount">R470,000</div></div>
+<div class="budgetrow"><div>Materials & communication</div><div class="bar"><div class="fill" style="width:15.4%;background:#8d77b5"></div></div><div class="amount">R125,000</div></div>
+<div class="budgetrow"><div>Monitoring & evaluation</div><div class="bar"><div class="fill" style="width:13.6%;background:#4e9fa8"></div></div><div class="amount">R110,000</div></div>
+<div class="budgetrow"><div>Events & logistics</div><div class="bar"><div class="fill" style="width:32.1%;background:#c47e63"></div></div><div class="amount">R260,000</div></div>
+<div class="budgetrow"><div>Contingency (10% of direct cost)</div><div class="bar"><div class="fill" style="width:29%;background:#667085"></div></div><div class="amount">R234,500</div></div>
+<div class="budget-total"><span>Total annual budget</span><span>R2,579,500</span></div>
+<div class="grid2" style="margin-top:14px">
+<div style="background:#f4f7fb;border-radius:10px;padding:14px"><div class="small">Estimated cost per student/year</div><strong style="font-size:1.35rem">R1,719.67</strong></div>
+<div style="background:#f4f7fb;border-radius:10px;padding:14px"><div class="small">Lean-model planning range</div><strong style="font-size:1.35rem">R1.2m–R1.5m</strong></div>
+</div><p class="small">The lean model depends on existing university staff, facilities, services, alumni and student peer mentors being available.</p>
+</div>
+</section>
+<section class="section">
+<h2>Performance scorecard</h2><p class="sub">Targets are proposed for the pilot. Record actual results as implementation proceeds.</p>
+<div class="card" style="overflow-x:auto"><table><thead><tr><th>Indicator</th><th>Proposed target</th><th>Actual result</th><th>Status</th></tr></thead><tbody>
+<tr><td>Student participation</td><td>70%</td><td>—</td><td><span class="status">Not measured</span></td></tr>
+<tr><td>First-year participation</td><td>80%</td><td>—</td><td><span class="status">Not measured</span></td></tr>
+<tr><td>Student satisfaction</td><td>80%</td><td>—</td><td><span class="status">Not measured</span></td></tr>
+<tr><td>Career programme reach</td><td>300 students</td><td>—</td><td><span class="status">Not measured</span></td></tr>
+<tr><td>Financial literacy reach</td><td>500 students</td><td>—</td><td><span class="status">Not measured</span></td></tr>
+<tr><td>Community projects</td><td>10 projects</td><td>—</td><td><span class="status">Not measured</span></td></tr>
+<tr><td>Planned activities delivered</td><td>90%</td><td>—</td><td><span class="status">Not measured</span></td></tr>
+<tr><td>Student recommendation rate</td><td>80%</td><td>—</td><td><span class="status">Not measured</span></td></tr>
+</tbody></table></div>
+</section>
+<section class="section">
+<h2>Evaluation and reporting checklist</h2><p class="sub">Tick off each milestone as the programme team completes it. Progress is saved only in this open page.</p>
+<div class="card"><div class="checklist" id="checks">
+<label><input type="checkbox"> February — establish baseline and student needs</label>
+<label><input type="checkbox"> After each activity — collect participant feedback</label>
+<label><input type="checkbox"> June — complete mid-year evaluation</label>
+<label><input type="checkbox"> October — complete end-of-year evaluation</label>
+<label><input type="checkbox"> October/November — submit annual report and recommendations</label>
+</div><div class="progress"><div id="progressBar"></div></div><p id="progressText" class="small">0 of 5 milestones completed</p></div>
+</section>
+<section class="section">
+<h2>Implementation and governance</h2>
+<div class="roles">
+<div class="role"><h3>Central programme office</h3><p>Owns the budget, calendar, facilitators, quality assurance, monitoring and institutional reporting.</p></div>
+<div class="role"><h3>Residence / accommodation champions</h3><p>Coordinate local activities, promote participation and report attendance and feedback.</p></div>
+<div class="role"><h3>University services and partners</h3><p>Support academic development, counselling, careers, wellness, alumni engagement and community projects.</p></div>
+</div>
+</section>
+<section class="section callout">
+<h2>Management decision required</h2>
+<p>Approve the one-year pilot framework, confirm participating university residences and accredited private accommodation providers, appoint a programme coordinator, validate the indicative annual budget, and approve the February–October calendar and evaluation framework.</p>
+<div class="toolbar"><button class="btn" onclick="window.print()">Print / Save as PDF</button><button class="btn" onclick="navigator.clipboard?.writeText('ISDP management decision: Approve the one-year Student Development Programme pilot; confirm participating university residences and accredited private accommodation; appoint a programme coordinator; validate the R2,579,500 indicative annual budget for 1,500 students; approve the February–October calendar and evaluation framework.').then(()=>alert('Decision summary copied.')).catch(()=>alert('Copy is not available in this browser.'))">Copy decision summary</button></div>
+</section>
+</main>
+<div class="footer">Integrated Student Development Programme · Planning dashboard · Figures are indicative and require institutional approval.</div>
+<script>
+document.getElementById('monthFilter').addEventListener('change',function(){document.querySelectorAll('.month').forEach(card=>{card.style.display=this.value==='all'||card.dataset.month===this.value?'':'none'})});
+const boxes=[...document.querySelectorAll('#checks input')];function updateProgress(){const n=boxes.filter(b=>b.checked).length;document.getElementById('progressBar').style.width=(n/boxes.length*100)+'%';document.getElementById('progressText').textContent=n+' of '+boxes.length+' milestones completed'}boxes.forEach(b=>b.addEventListener('change',updateProgress));
+</script>
+</body>
+</html>
